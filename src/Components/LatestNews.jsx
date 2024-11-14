@@ -7,8 +7,8 @@ const LatestNews = () => {
       <p className="inline-block py-1 px-3 text-xl text-white font-medium bg-[#D72050]">
         Latest
       </p>
-<Marquee>
-<Link to='/news'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, unde.</Link>
+<Marquee pauseOnHover={true} speed={100} direction="right">
+<Link to='/news'> Match Highlights: Germany vs Spain — as it happened   !   Match Highlights: Germany vs Spain as...</Link>
 </Marquee>
     </div>
   );
