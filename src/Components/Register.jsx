@@ -23,19 +23,19 @@ const Register = () => {
           setError(null)
             const user = result.user
             setUser(user)
-            console.log(user)
+            
             updateUserProfile({displayName:name ,photoURL :photo})
             .then(()=>{
               navigate('/')
             })
             .catch(error=>{
-              console.log(error)
+              alert(error.message)
             })
         })
         .catch(error=>{
             const errorCode = error.errorCode
             const errorMessage = error.errorMessage
-            console.log(errorCode,errorMessage);
+            alert(errorCode,errorMessage);
 
         })
     }

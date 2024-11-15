@@ -28,7 +28,7 @@ useEffect(()=>{
     const unSubscribed=onAuthStateChanged(auth,currentUser=>{
         setLoading(false)
         setUser(currentUser)
-        console.log(currentUser)
+      
     })
     return ()=>{
         unSubscribed()
