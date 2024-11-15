@@ -1,21 +1,36 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
-    const {createNewUser} = useContext(AuthContext)
+    const {createNewUser,updateUserProfile,setUser} = useContext(AuthContext)
+    const navigate = useNavigate()
+    const [error,setError]=useState({})
     const handleSubmit=e=>{
         e.preventDefault()
         const form = new FormData(e.target)
       const name = form.get('name')
+      if(name.length <5){
+        setError({...error,name:'Must be more than 5 character '})
+        return;
+      }
       const photo = form.get('photo')
       const email = form.get('email')
       const password = form.get('password')
-        console.log({name,photo,email,password})
+       
         createNewUser(email,password)
         .then(result=>{
+          setError(null)
             const user = result.user
+            setUser(user)
             console.log(user)
+            updateUserProfile({displayName:name ,photoURL :photo})
+            .then(()=>{
+              navigate('/')
+            })
+            .catch(error=>{
+              console.log(error)
+            })
         })
         .catch(error=>{
             const errorCode = error.errorCode
@@ -41,6 +56,11 @@ const Register = () => {
               required
             />
           </div>
+          {
+            error?.name &&  <label className="label text-sm text-red-600">
+              {error?.name}
+            </label>
+          }
           <div className="form-control">
             <label className="label">
               <span className="label-text">Photo</span>
@@ -64,6 +84,7 @@ const Register = () => {
               className="input input-bordered"
               required
             />
+            
           </div>
           <div className="form-control">
             <label className="label">

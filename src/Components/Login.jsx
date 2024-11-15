@@ -1,10 +1,14 @@
-import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Login = () => {
   const {userLogin,setUser}=useContext(AuthContext)
+const [error,setError]=useState({})
+
   const navigate= useNavigate()
+  const location=useLocation()
+  console.log(location);
     const handleSubmit=e=>{
         e.preventDefault()
         const form = e.target
@@ -12,12 +16,12 @@ const Login = () => {
         const password=form.password.value
       userLogin(email,password)
       .then(result=>{
-        navigate('/')
+      navigate(location?.state ? location.state: '/')
         const user= result.user
         setUser(user)
       })
-      .catch(error=>{
-        alert(error.code)
+      .catch(err=>{
+      setError({...error,login:err.code})
       })
     }
   return (
@@ -49,6 +53,13 @@ const Login = () => {
               required
             />
             <label className="label">
+              {
+                error.login && (
+                  <label className="label text-sm text-red-600">
+                   { error.login}
+                  </label>
+                )
+              }
               <a href="#" className="label-text-alt link link-hover">
                 Forgot password?
               </a>
@@ -59,8 +70,8 @@ const Login = () => {
           </div>
         </form>
         <p className="text-center mb-4">
-          Don’t Have An Account ?{" "}
-          <Link className="text-red-500" to="/auth/register">
+          Don’t Have An Account ?
+          <Link  className="text-red-500" to="/auth/register">
             Register
           </Link>
         </p>
