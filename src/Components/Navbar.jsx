@@ -14,7 +14,7 @@ const Navbar = () => {
       </div>
       <div className="flex gap-2">
         <img src={userIcon} alt="" />
-        <button className="btn text-white rounded-none btn-neutral">Log In</button>
+        <Link to='/auth/login' className="btn text-white rounded-none btn-neutral">Log In</Link>
       </div>
     </div>
   );
