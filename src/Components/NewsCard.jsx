@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 
 import { FaEye, FaShareAlt} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 const NewsCard = ({singleNews}) => {
-    const {author,thumbnail_url,title,details}=singleNews
+  
+    const {author,image_url,title,details}=singleNews
     return (
         <div className=" p-4 bg-white rounded-lg shadow-md border border-gray-200">
         {/* Header Section with Author and Share Icon */}
@@ -28,16 +30,16 @@ const NewsCard = ({singleNews}) => {
          {title}
         </h2>
         <img
-          src={thumbnail_url}
+          src={image_url}
           alt="Article"
-          className="w-full h-48 mt-3 rounded-lg object-cover"
+          className=" mt-3 rounded-lg object-cover"
         />
   
         {/* Article Details */}
         <p className="mt-3 text-sm text-gray-600">
          {details}
         </p>
-        <button className="mt-2 text-orange-500 text-sm font-medium">Read More</button>
+        <Link to={`/news/${singleNews._id}`} className="mt-2 text-orange-500 text-sm font-medium">Read More</Link>
   
         {/* Rating and Views */}
         <div className="flex items-center justify-between mt-4">
